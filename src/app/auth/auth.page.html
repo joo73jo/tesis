@@ -1,0 +1,27 @@
+<ion-content class="ion-padding background">
+
+  <div class="logo-container">
+    <ion-icon name="lock-closed-outline" class="logo"></ion-icon>
+    <h2 class="title">LOGO GENERICO</h2>
+  </div>
+
+  <div class="form-container">
+    <ion-item lines="none" class="input-field">
+      <ion-input placeholder="USUARIO" [(ngModel)]="usuario"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none" class="input-field">
+      <ion-input placeholder="CONTRASEÑA" [(ngModel)]="contrasena" type="password"></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" class="btn-filled" (click)="login()">INGRESAR</ion-button>
+  </div>
+
+  <div class="footer">
+    <ion-icon name="logo-facebook"></ion-icon>
+    <ion-icon name="logo-instagram"></ion-icon>
+    <ion-icon name="logo-twitter"></ion-icon>
+    <p>WWW.PAGINAWEB.COM</p>
+  </div>
+
+</ion-content>
