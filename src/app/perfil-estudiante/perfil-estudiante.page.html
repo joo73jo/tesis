@@ -1,13 +1,10 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>perfil-estudiante</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">perfil-estudiante</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="background ion-padding">
+  <div class="perfil-container">
+    <ion-icon name="person-circle-outline" class="avatar"></ion-icon>
+    <h2 class="name">Joel Parra</h2>
+    <p class="role">Estudiante</p>
+    <ion-button expand="block" fill="outline" class="logout" (click)="logout()">
+      CERRAR SESIÓN
+    </ion-button>
+  </div>
 </ion-content>

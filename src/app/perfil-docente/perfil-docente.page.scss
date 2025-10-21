@@ -1,0 +1,32 @@
+.background {
+  --background: #29235c;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+}
+
+.avatar {
+  font-size: 100px;
+  color: #7b83ff;
+  margin-top: 60px;
+}
+
+.name {
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.role {
+  font-size: 14px;
+  color: #b3b9ff;
+  margin-bottom: 40px;
+}
+
+.logout {
+  --border-color: #7b83ff;
+  --color: #7b83ff;
+  width: 80%;
+  border-radius: 10px;
+  margin: 20px auto;
+}

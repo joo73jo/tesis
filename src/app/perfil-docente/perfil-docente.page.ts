@@ -1,20 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { IonContent, IonButton, IonIcon } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-perfil-docente',
+  standalone: true,
   templateUrl: './perfil-docente.page.html',
   styleUrls: ['./perfil-docente.page.scss'],
-  standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [CommonModule, IonContent, IonButton, IonIcon],
 })
-export class PerfilDocentePage implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
+export class PerfilDocentePage {
+  constructor(private router: Router) {}
+  logout() {
+    this.router.navigate(['/login']);
   }
-
 }
