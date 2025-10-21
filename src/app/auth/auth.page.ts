@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, IonContent, IonInput, IonItem, IonButton, IonIcon } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -18,13 +18,13 @@ export class AuthPage {
 
   constructor(
     private route: ActivatedRoute,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private router: Router
   ) {
     this.role = this.route.snapshot.queryParamMap.get('role') || '';
   }
 
   async login() {
-    // Datos quemados
     const credenciales = {
       docente: { user: 'joel.docente', pass: '12345' },
       estudiante: { user: 'joel.estudiante', pass: '12345' },
@@ -38,14 +38,29 @@ export class AuthPage {
         this.usuario === credenciales.estudiante.user &&
         this.contrasena === credenciales.estudiante.pass);
 
+    if (!valido) {
+      const alert = await this.alertCtrl.create({
+        header: 'Error',
+        message: 'Usuario o contraseña incorrectos.',
+        buttons: ['OK'],
+      });
+      await alert.present();
+      return;
+    }
+
     const alert = await this.alertCtrl.create({
-      header: valido ? 'Inicio de sesión exitoso' : 'Error',
-      message: valido
-        ? `Bienvenido ${this.role === 'docente' ? 'Docente Joel Parra' : 'Estudiante Joel Parra'}`
-        : 'Usuario o contraseña incorrectos.',
+      header: 'Inicio de sesión exitoso',
+      message: `Bienvenido ${this.role === 'docente' ? 'Docente Joel Parra' : 'Estudiante Joel Parra'}`,
       buttons: ['OK'],
     });
 
     await alert.present();
+    await alert.onDidDismiss();
+
+    if (this.role === 'docente') {
+      this.router.navigate(['/tabs-docente']);
+    } else {
+      this.router.navigate(['/tabs-estudiante']);
+    }
   }
 }

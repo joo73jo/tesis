@@ -1,0 +1,17 @@
+<ion-content class="background ion-padding">
+  <ion-button expand="block" fill="outline" class="logout" (click)="logout()">CERRAR SESIÓN</ion-button>
+</ion-content>
+
+<ion-tabs>
+  <ion-tab-bar slot="bottom" class="tab-bar">
+    <ion-tab-button tab="calificaciones" [routerLink]="['/tabs-estudiante/calificaciones']">
+      <ion-icon name="grid-outline"></ion-icon><ion-label>Calificaciones</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="noticias" [routerLink]="['/tabs-estudiante/noticias']">
+      <ion-icon name="chatbubble-ellipses-outline"></ion-icon><ion-label>Noticias</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="perfil" [routerLink]="['/tabs-estudiante/perfil']">
+      <ion-icon name="person-outline"></ion-icon><ion-label>Perfil</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
