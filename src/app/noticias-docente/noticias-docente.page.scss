@@ -1,0 +1,23 @@
+.background {
+  --background: #1e1e8f;
+  color: white;
+}
+
+.title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.menu-list ion-item {
+  --background: #2d2da8;
+  color: white;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+ion-icon {
+  color: #8cb4ff;
+}

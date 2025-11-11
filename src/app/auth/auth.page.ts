@@ -1,66 +1,79 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, IonContent, IonInput, IonItem, IonButton, IonIcon } from '@ionic/angular/standalone';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import {
+  IonContent,
+  IonInput,
+  IonButton,
+  IonItem,
+  IonIcon,
+  AlertController
+} from '@ionic/angular/standalone';
+import { SupabaseService } from '../core/supabase.service';
 
 @Component({
   selector: 'app-auth',
   standalone: true,
   templateUrl: './auth.page.html',
   styleUrls: ['./auth.page.scss'],
-  imports: [CommonModule, FormsModule, IonContent, IonInput, IonItem, IonButton, IonIcon],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    IonContent,
+    IonInput,
+    IonButton,
+    IonItem,
+    IonIcon
+  ],
 })
-export class AuthPage {
-  usuario = '';
+export class AuthPage implements OnInit {
+  correo = '';
   contrasena = '';
-  role = '';
+  rol = '';
 
   constructor(
     private route: ActivatedRoute,
-    private alertCtrl: AlertController,
-    private router: Router
-  ) {
-    this.role = this.route.snapshot.queryParamMap.get('role') || '';
+    private router: Router,
+    private supabase: SupabaseService,
+    private alertController: AlertController
+  ) {}
+
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.rol = params['role'];
+    });
   }
 
   async login() {
-    const credenciales = {
-      docente: { user: 'joel.docente', pass: '12345' },
-      estudiante: { user: 'joel.estudiante', pass: '12345' },
-    };
+    try {
+      const usuario = await this.supabase.login(this.correo, this.contrasena);
 
-    const valido =
-      (this.role === 'docente' &&
-        this.usuario === credenciales.docente.user &&
-        this.contrasena === credenciales.docente.pass) ||
-      (this.role === 'estudiante' &&
-        this.usuario === credenciales.estudiante.user &&
-        this.contrasena === credenciales.estudiante.pass);
+      this.supabase.setSession(usuario);
 
-    if (!valido) {
-      const alert = await this.alertCtrl.create({
+      const alert = await this.alertController.create({
+        header: 'Inicio de sesión exitoso',
+        message: `Bienvenido ${usuario.rol === 'docente' ? 'Docente' : 'Estudiante'} ${usuario.usuario.nombres} ${usuario.usuario.apellidos}`,
+        buttons: ['OK'],
+      });
+
+      await alert.present();
+      await alert.onDidDismiss();
+
+      if (usuario.rol === 'docente') {
+        await this.router.navigate(['/tabs-docente/perfil']);
+      } else {
+        await this.router.navigate(['/tabs-estudiante/perfil']);
+      }
+
+    } catch {
+      const alert = await this.alertController.create({
         header: 'Error',
-        message: 'Usuario o contraseña incorrectos.',
+        message: 'Correo o contraseña incorrectos.',
         buttons: ['OK'],
       });
       await alert.present();
-      return;
-    }
-
-    const alert = await this.alertCtrl.create({
-      header: 'Inicio de sesión exitoso',
-      message: `Bienvenido ${this.role === 'docente' ? 'Docente Joel Parra' : 'Estudiante Joel Parra'}`,
-      buttons: ['OK'],
-    });
-
-    await alert.present();
-    await alert.onDidDismiss();
-
-    if (this.role === 'docente') {
-      this.router.navigate(['/tabs-docente']);
-    } else {
-      this.router.navigate(['/tabs-estudiante']);
     }
   }
 }

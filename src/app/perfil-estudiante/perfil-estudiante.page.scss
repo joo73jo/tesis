@@ -1,36 +1,32 @@
 .background {
-  --background: #29235c;
-  font-family: 'Montserrat', sans-serif;
+  --background: #1e1e8f;
+  color: white;
   text-align: center;
-  color: #ffffff;
 }
 
-.avatar {
-  font-size: 100px;
-  color: #7b83ff;
-  margin-top: 80px;
+.perfil-container {
+  margin-top: 10vh;
 }
 
-.name {
-  font-size: 20px;
-  font-weight: 600;
-  color: #d1d4ff;
-  margin-top: 15px;
+.perfil-icon {
+  font-size: 6rem;
+  color: #8cb4ff;
 }
 
-.role {
-  font-size: 15px;
-  color: #9fa4ff;
-  margin-bottom: 50px;
+h2 {
+  margin-top: 0.5rem;
+  font-weight: bold;
 }
 
-.logout {
-  --border-color: #7b83ff;
-  --color: #7b83ff;
-  width: 80%;
-  border-radius: 10px;
-  margin: 0 auto;
-  text-transform: uppercase;
-  font-weight: 500;
-  letter-spacing: 0.5px;
+.estado {
+  background: #2d2da8;
+  border-radius: 15px;
+  color: white;
+  padding: 1rem;
+  margin-top: 3rem;
+}
+
+ion-button {
+  margin-top: 2rem;
+  --border-radius: 10px;
 }

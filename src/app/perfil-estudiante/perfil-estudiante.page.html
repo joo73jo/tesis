@@ -1,10 +1,14 @@
-<ion-content class="background ion-padding">
+<ion-content class="ion-padding background">
   <div class="perfil-container">
-    <ion-icon name="person-circle-outline" class="avatar"></ion-icon>
-    <h2 class="name">Joel Parra</h2>
-    <p class="role">Estudiante</p>
-    <ion-button expand="block" fill="outline" class="logout" (click)="logout()">
-      CERRAR SESIÓN
-    </ion-button>
+    <ion-icon name="person-circle-outline" class="perfil-icon"></ion-icon>
+    <h2>{{ nombreCompleto }}</h2>
+    <p>{{ curso }}</p>
   </div>
+
+  <ion-card class="estado">
+    <h3>{{ estado }}</h3>
+    <p>Promedio general: {{ promedioGeneral }}</p>
+  </ion-card>
+
+  <ion-button expand="block" color="danger" (click)="cerrarSesion()">CERRAR SESIÓN</ion-button>
 </ion-content>

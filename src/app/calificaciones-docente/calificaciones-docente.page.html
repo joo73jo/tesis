@@ -1,13 +1,38 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>calificaciones-docente</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="ion-padding background">
+  <h2 class="title">CALIFICACIONES</h2>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">calificaciones-docente</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-item lines="none" class="materia-select">
+    <ion-label>Materia</ion-label>
+    <ion-select [(ngModel)]="materiaSeleccionada" (ionChange)="filtrarCalificaciones()">
+      <ion-select-option *ngFor="let m of materias" [value]="m">{{ m }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-searchbar
+    placeholder="Buscar estudiante"
+    [(ngModel)]="busqueda"
+    (ionInput)="filtrarCalificaciones()"
+    class="buscador"
+  ></ion-searchbar>
+
+  <div *ngIf="materiaSeleccionada !== 'Todas las materias' && calificacionesFiltradas.length > 0" class="promedio-container">
+    <p>Promedio general: <strong>{{ promedioCurso }}</strong></p>
+  </div>
+
+  <ion-list>
+    <ion-item
+      *ngFor="let nota of calificacionesFiltradas"
+      (click)="mostrarObservacion(nota)"
+      [ngClass]="{ 'nota-baja': nota.promedio < 7 }"
+    >
+      <ion-label>
+        <h2>{{ nota.estudiantes.nombres }} {{ nota.estudiantes.apellidos }}</h2>
+        <p>{{ nota.curso }} — Promedio: {{ nota.promedio }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <div *ngIf="calificacionesFiltradas.length === 0" class="sin-datos">
+    <p>No hay calificaciones disponibles.</p>
+  </div>
 </ion-content>

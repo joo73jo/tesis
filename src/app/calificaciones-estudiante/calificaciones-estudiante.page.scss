@@ -1,53 +1,36 @@
-ion-content {
-  --background: #2f2b6e;
-  color: #fff;
-}
-
-.perfil {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
-  ion-icon { font-size: 30px; margin-right: 8px; }
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-
-ion-card {
-  background: #3a3780;
-  border-radius: 14px;
-  text-align: center;
+.background {
+  --background: #1e1e8f;
   color: white;
-  transition: 0.2s;
-  &:active { transform: scale(0.95); }
-  &.reprueba { border: 2px solid #791800; }
+  text-align: center;
 }
 
-.alert-custom {
-  --background: #2f2b6e;
-  --color: white;
-  --backdrop-opacity: 0.4;
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 2rem;
+}
 
-  .alert-title {
-    font-family: 'Montserrat';
-    font-weight: 600;
-    text-align: center;
-  }
+.subtitle {
+  color: #a0a0ff;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
 
-  .alert-message {
-    font-family: 'Montserrat';
-    text-align: justify;
-    font-size: 15px;
-    line-height: 1.4;
-  }
+.nota-card {
+  background: #2d2da8;
+  border-radius: 15px;
+  padding: 1rem;
+  color: white;
+  text-align: center;
+  margin-bottom: 1rem;
+}
 
-  .alert-button {
-    font-family: 'Montserrat';
-    font-weight: 500;
-    color: #e05b81;
-  }
+.nota {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.materia {
+  font-size: 0.9rem;
+  color: #b0b0ff;
 }

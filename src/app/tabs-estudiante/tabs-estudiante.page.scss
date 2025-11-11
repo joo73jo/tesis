@@ -1,3 +1,14 @@
-.background { --background:#29235c; color:#fff; font-family:'Montserrat',sans-serif; text-align:center; }
-.logout { --border-color:#7b83ff; --color:#7b83ff; width:80%; border-radius:10px; margin:40px auto; }
-.tab-bar { --background:#221d4a; ion-icon, ion-label { color:#b3b9ff; } }
+.tabbar {
+  --background: #2d2da8;
+  --color: #b0b0ff;
+  --color-selected: #ffffff;
+  border-radius: 15px 15px 0 0;
+}
+
+ion-icon {
+  font-size: 1.3rem;
+}
+
+ion-label {
+  font-size: 0.8rem;
+}

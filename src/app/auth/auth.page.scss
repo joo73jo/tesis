@@ -1,78 +1,56 @@
 .background {
-  --background: #29235c; 
-  color: #fff;
+  --background: #1e1e8f;
+  color: white;
   text-align: center;
-  font-family: 'Montserrat', sans-serif;
 }
 
 .logo-container {
-  margin-top: 70px;
+  margin-top: 10vh;
+}
 
-  .logo {
-    font-size: 60px;
-    color: #7b83ff;
-  }
+.logo {
+  font-size: 4rem;
+  color: #8cb4ff;
+}
 
-  .title {
-    margin-top: 10px;
-    font-size: 20px;
-    color: #8c93ff;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-  }
+.title {
+  font-size: 1.6rem;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #b0b0ff;
+  margin-top: 0.3rem;
 }
 
 .form-container {
-  margin-top: 60px;
-  padding: 0 40px;
+  margin-top: 15vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 1rem;
+  padding: 0 2rem;
+}
 
-  .input-field {
-    width: 100%;
-    margin-bottom: 20px;
-    border: 1px solid #7b83ff;
-    border-radius: 10px;
-    background: #ffffff;
+.input-field {
+  --background: white;
+  border-radius: 10px;
+  color: black;
+}
 
-    ion-input {
-      color: #000000; 
-      text-align: center;
-      font-size: 15px;
-      font-weight: 400;
-      --placeholder-color: #7b83ff;
-      --highlight-color-focused: #7b83ff;
-      letter-spacing: 0.3px;
-    }
-  }
-
-  .btn-filled {
-    width: 100%;
-    border-radius: 10px;
-    --background: #7b83ff;
-    --color: white;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-  }
+.btn-filled {
+  --background: #4361ee;
+  --border-radius: 12px;
 }
 
 .footer {
   position: absolute;
-  bottom: 30px;
+  bottom: 5%;
   width: 100%;
-  color: #8c93ff;
-  font-weight: 300;
+  text-align: center;
+  color: #a0a0ff;
+}
 
-  ion-icon {
-    font-size: 24px;
-    margin: 0 10px;
-  }
-
-  p {
-    margin-top: 10px;
-    font-size: 12px;
-    letter-spacing: 0.3px;
-  }
+.footer ion-icon {
+  margin: 0 8px;
+  font-size: 1.2rem;
 }

@@ -2,12 +2,13 @@
 
   <div class="logo-container">
     <ion-icon name="lock-closed-outline" class="logo"></ion-icon>
-    <h2 class="title">LOGO GENERICO</h2>
+    <h2 class="title">INGRESAR</h2>
+    <h3 class="subtitle">{{ rol | uppercase }}</h3>
   </div>
 
   <div class="form-container">
     <ion-item lines="none" class="input-field">
-      <ion-input placeholder="USUARIO" [(ngModel)]="usuario"></ion-input>
+      <ion-input placeholder="CORREO" [(ngModel)]="correo" type="email"></ion-input>
     </ion-item>
 
     <ion-item lines="none" class="input-field">

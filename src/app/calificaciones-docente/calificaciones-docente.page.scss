@@ -1,0 +1,58 @@
+.background {
+  --background: #1e1e8f;
+  color: white;
+}
+
+.title {
+  text-align: center;
+  margin-top: 2rem;
+  font-weight: bold;
+  color: white;
+}
+
+.materia-select {
+  margin-top: 1rem;
+  --background: #2d2da8;
+  border-radius: 10px;
+  color: white;
+}
+
+ion-select,
+ion-label {
+  color: white !important;
+}
+
+.buscador {
+  --background: #2d2da8;
+  --color: white;
+  --placeholder-color: #b0b0ff;
+  border-radius: 10px;
+  margin-top: 1rem;
+}
+
+.promedio-container {
+  text-align: right;
+  margin-right: 1rem;
+  margin-bottom: 0.5rem;
+  color: #a0a0ff;
+  font-size: 0.9rem;
+}
+
+ion-item {
+  --background: #2d2da8;
+  color: white;
+  margin: 0.5rem;
+  border-radius: 10px;
+  transition: 0.2s ease;
+}
+
+ion-item.nota-baja {
+  border: 2px solid #ff4d4d;
+}
+
+.sin-datos {
+  text-align: center;
+  color: #b0b0ff;
+  margin-top: 3rem;
+  font-size: 1rem;
+}
