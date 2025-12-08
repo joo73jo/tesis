@@ -10,7 +10,8 @@ import {
   IonIcon,
   AlertController
 } from '@ionic/angular/standalone';
-import { SupabaseService } from '../core/supabase.service';
+import { AuthService } from '../core/auth.service';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-auth',
@@ -29,6 +30,7 @@ import { SupabaseService } from '../core/supabase.service';
   ],
 })
 export class AuthPage implements OnInit {
+
   correo = '';
   contrasena = '';
   rol = '';
@@ -36,7 +38,7 @@ export class AuthPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private supabase: SupabaseService,
+    private auth: AuthService,
     private alertController: AlertController
   ) {}
 
@@ -47,30 +49,42 @@ export class AuthPage implements OnInit {
   }
 
   async login() {
-    try {
-      const usuario = await this.supabase.login(this.correo, this.contrasena);
+    const body = { email: this.correo, password: this.contrasena };
 
-      this.supabase.setSession(usuario);
+    try {
+      let respuesta: any;
+
+      if (this.rol === 'docente') {
+        respuesta = await lastValueFrom(
+          this.auth.loginDocente(body.email, body.password)
+        );
+      } else {
+        respuesta = await lastValueFrom(
+          this.auth.loginEstudiante(body.email, body.password)
+        );
+      }
+
+      await this.auth.guardarSesion(respuesta);
 
       const alert = await this.alertController.create({
         header: 'Inicio de sesión exitoso',
-        message: `Bienvenido ${usuario.rol === 'docente' ? 'Docente' : 'Estudiante'} ${usuario.usuario.nombres} ${usuario.usuario.apellidos}`,
+        message: `Bienvenido ${respuesta.nombre} ${respuesta.apellido}`,
         buttons: ['OK'],
       });
 
       await alert.present();
       await alert.onDidDismiss();
 
-      if (usuario.rol === 'docente') {
-        await this.router.navigate(['/tabs-docente/perfil']);
+      if (respuesta.rol === 'docente') {
+        this.router.navigate(['/tabs-docente']);
       } else {
-        await this.router.navigate(['/tabs-estudiante/perfil']);
+        this.router.navigate(['/tabs-estudiante']);
       }
 
-    } catch {
+    } catch (error: any) {
       const alert = await this.alertController.create({
         header: 'Error',
-        message: 'Correo o contraseña incorrectos.',
+        message: error?.error?.msg ?? 'Error al iniciar sesión',
         buttons: ['OK'],
       });
       await alert.present();

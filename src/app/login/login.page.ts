@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterLink, RouterLinkWithHref, RouterModule } from '@angular/router';
 import {
   IonContent,
   IonButton,
@@ -15,6 +15,8 @@ import {
   imports: [
     CommonModule,
     RouterModule,
+    RouterLink,
+    RouterLinkWithHref,
     IonContent,
     IonButton,
     IonIcon
