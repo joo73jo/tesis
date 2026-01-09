@@ -7,7 +7,7 @@ import {
   IonIcon
 } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
-import { SupabaseService } from '../core/supabase.service';
+import { AuthService } from '../core/auth.service';
 
 @Component({
   selector: 'app-perfil-docente',
@@ -17,15 +17,21 @@ import { SupabaseService } from '../core/supabase.service';
   imports: [CommonModule, IonContent, IonButton, IonCard, IonIcon],
 })
 export class PerfilDocentePage implements OnInit {
+
   nombreCompleto = '';
   especialidad = '';
   cursoAsignado = '';
 
-  constructor(private supabase: SupabaseService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
-  ngOnInit() {
-    const sesion = this.supabase.getSession();
-    const { usuario } = sesion;
+  async ngOnInit() {
+    await this.authService.cargarSesion();
+
+    const usuario = this.authService.usuario;
+    if (!usuario) return;
 
     this.nombreCompleto = `${usuario.nombres} ${usuario.apellidos}`;
     this.especialidad = usuario.especialidad;
@@ -33,7 +39,7 @@ export class PerfilDocentePage implements OnInit {
   }
 
   cerrarSesion() {
-    this.supabase.logout();
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 }

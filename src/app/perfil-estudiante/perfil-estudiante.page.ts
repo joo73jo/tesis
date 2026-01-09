@@ -7,7 +7,7 @@ import {
   IonIcon
 } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
-import { SupabaseService } from '../core/supabase.service';
+import { AuthService } from '../core/auth.service';
 
 @Component({
   selector: 'app-perfil-estudiante',
@@ -17,36 +17,35 @@ import { SupabaseService } from '../core/supabase.service';
   imports: [CommonModule, IonContent, IonButton, IonCard, IonIcon],
 })
 export class PerfilEstudiantePage implements OnInit {
+
   nombreCompleto = '';
   curso = '';
-  promedioGeneral = 0;
+  paralelo = '';
   estado = '';
+  promedioGeneral = 0;   // 👈 VARIABLE QUE FALTABA
 
-  constructor(private supabase: SupabaseService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
-async ngOnInit() {
-  const sesion = this.supabase.getSession();
-  const { usuario } = sesion;
+  async ngOnInit() {
+    await this.authService.cargarSesion();
 
-  this.nombreCompleto = `${usuario.nombres} ${usuario.apellidos}`;
-  this.curso = usuario.curso;
+    const usuario = this.authService.usuario;
+    if (!usuario) return;
 
-  const calificaciones = await this.supabase.getCalificacionesEstudiante(usuario.id);
-  const promedios = calificaciones.map(c => Number(c.promedio));
+    this.nombreCompleto = `${usuario.nombres} ${usuario.apellidos}`;
+    this.curso = usuario.curso;
+    this.paralelo = usuario.paralelo;
+    this.estado = usuario.estado;
 
-  if (promedios.length > 0) {
-    const promedio = promedios.reduce((a, b) => a + b, 0) / promedios.length;
-    this.promedioGeneral = Number(promedio.toFixed(2)); // ✅ convierte a número
-  } else {
-    this.promedioGeneral = 0;
+    // Por ahora queda en 0 hasta calcularlo desde calificaciones
+    this.promedioGeneral = usuario.promedioGeneral ?? 0;
   }
 
-  this.estado = this.promedioGeneral >= 7 ? 'APRUEBA' : 'REPRUEBA';
-}
-
-
   cerrarSesion() {
-    this.supabase.logout();
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 }

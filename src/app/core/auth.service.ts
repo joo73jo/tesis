@@ -17,9 +17,6 @@ export class AuthService {
     'Content-Type': 'application/json'
   });
 
-  // ========================================
-  // LOGIN ESTUDIANTE
-  // ========================================
   loginEstudiante(email: string, password: string) {
     return this.http.post(
       `${this.BASE_URL}/apiE/login`,
@@ -28,9 +25,6 @@ export class AuthService {
     );
   }
 
-  // ========================================
-  // LOGIN DOCENTE
-  // ========================================
   loginDocente(email: string, password: string) {
     return this.http.post(
       `${this.BASE_URL}/apiD/login`,
@@ -39,9 +33,6 @@ export class AuthService {
     );
   }
 
-  // ========================================
-  // GUARDAR SESIÓN
-  // ========================================
   async guardarSesion(data: any) {
     this.token = data.token;
     this.usuario = data;
@@ -66,24 +57,26 @@ export class AuthService {
     localStorage.removeItem('token');
   }
 
-  // ========================================
-  // HEADERS AUTORIZADOS
-  // ========================================
   getHeaders() {
     return new HttpHeaders({
       Authorization: `Bearer ${this.token}`
     });
   }
 
-  obtenerCalificacionesEstudiante(id: string) {
-    return this.http.get(`${this.BASE_URL}/apiE/calificaciones/${id}`, {
-      headers: this.getHeaders()
-    });
-  }
+obtenerCalificacionesEstudiante(id: string) {
+  return this.http.get<any[]>(
+    `${this.BASE_URL}/apiE/calificaciones/${id}?t=${Date.now()}`,
+    {
+      headers: this.getHeaders().set('Cache-Control', 'no-cache')
+    }
+  );
+}
+
 
   obtenerCalificacionesDocente(id: string) {
-    return this.http.get(`${this.BASE_URL}/apiD/calificaciones/${id}`, {
-      headers: this.getHeaders()
-    });
+    return this.http.get<any[]>(
+      `${this.BASE_URL}/apiD/calificaciones/${id}`,
+      { headers: this.getHeaders() }
+    );
   }
 }

@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import {
   IonContent,
-  IonList,
   IonItem,
   IonLabel,
   IonSelect,
   IonSelectOption,
   IonSearchbar,
-  AlertController
+  IonList
 } from '@ionic/angular/standalone';
-import { FormsModule } from '@angular/forms';
-import { SupabaseService } from '../core/supabase.service';
+import { AuthService } from '../core/auth.service';
 
 @Component({
   selector: 'app-calificaciones-docente',
@@ -22,80 +21,79 @@ import { SupabaseService } from '../core/supabase.service';
     CommonModule,
     FormsModule,
     IonContent,
-    IonList,
     IonItem,
     IonLabel,
     IonSelect,
     IonSelectOption,
-    IonSearchbar
+    IonSearchbar,
+    IonList
   ],
 })
 export class CalificacionesDocentePage implements OnInit {
-  calificaciones: any[] = [];
-  calificacionesFiltradas: any[] = [];
+
   materias: string[] = [];
   materiaSeleccionada = 'Todas las materias';
   busqueda = '';
+
+  calificaciones: any[] = [];
+  calificacionesFiltradas: any[] = [];
   promedioCurso = 0;
 
-  constructor(
-    private supabase: SupabaseService,
-    private alertController: AlertController
-  ) {}
+  constructor(private authService: AuthService) {}
 
   async ngOnInit() {
-    const sesion = this.supabase.getSession();
-    const { usuario } = sesion;
+    await this.authService.cargarSesion();
+    const usuario = this.authService.usuario;
+    if (!usuario) return;
 
-    // Traer todas las calificaciones del docente
-    const data = await this.supabase.getCalificacionesDocente(usuario.id);
-    this.calificaciones = data;
+    this.authService.obtenerCalificacionesDocente(usuario._id)
+      .subscribe({
+        next: (data: any[]) => {
+          this.calificaciones = data.map((c: any) => ({
+            estudiantes: c.estudiante,
+            curso: c.materia,
+            promedio: c.promedioFinal
+          }));
 
-    // Limpiar y agrupar materias únicas
-    const materiasUnicas = [
-      ...new Set(
-        data
-          .map((c) => (c.curso || '').trim())
-          .filter((c) => c !== '')
-      ),
-    ];
+          this.materias = [
+            'Todas las materias',
+            ...new Set(this.calificaciones.map(c => c.curso))
+          ];
 
-    this.materias = ['Todas las materias', ...materiasUnicas];
-    this.materiaSeleccionada = 'Todas las materias';
-
-    console.log('Materias cargadas:', this.materias);
-
-    this.filtrarCalificaciones();
+          this.filtrarCalificaciones();
+        },
+        error: () => {}
+      });
   }
 
   filtrarCalificaciones() {
-    this.calificacionesFiltradas = this.calificaciones.filter((c) => {
+    this.calificacionesFiltradas = this.calificaciones.filter(c => {
       const coincideMateria =
-        this.materiaSeleccionada === 'Todas las materias'
-          ? true
-          : c.curso === this.materiaSeleccionada;
+        this.materiaSeleccionada === 'Todas las materias' ||
+        c.curso === this.materiaSeleccionada;
 
-      const coincideBusqueda = `${c.estudiantes.nombres} ${c.estudiantes.apellidos}`
-        .toLowerCase()
-        .includes(this.busqueda.toLowerCase());
+      const coincideBusqueda =
+        !this.busqueda ||
+        `${c.estudiantes.nombres} ${c.estudiantes.apellidos}`
+          .toLowerCase()
+          .includes(this.busqueda.toLowerCase());
 
       return coincideMateria && coincideBusqueda;
     });
 
-    // Calcular promedio del curso mostrado
-    const promedios = this.calificacionesFiltradas.map((n) => Number(n.promedio));
-    this.promedioCurso =
-      promedios.length > 0
-        ? Number((promedios.reduce((a, b) => a + b, 0) / promedios.length).toFixed(2))
-        : 0;
+    if (this.calificacionesFiltradas.length > 0) {
+      const suma = this.calificacionesFiltradas.reduce(
+        (acc, c) => acc + c.promedio, 0
+      );
+      this.promedioCurso = Number(
+        (suma / this.calificacionesFiltradas.length).toFixed(2)
+      );
+    } else {
+      this.promedioCurso = 0;
+    }
   }
 
-  async mostrarObservacion(nota: any) {
-    const alert = await this.alertController.create({
-      header: `${nota.estudiantes.nombres} ${nota.estudiantes.apellidos}`,
-      message: nota.observacion || 'Sin observación registrada.',
-      buttons: ['OK'],
-    });
-    await alert.present();
+  mostrarObservacion(nota: any) {
+    // Se deja porque el HTML la usa
   }
 }
