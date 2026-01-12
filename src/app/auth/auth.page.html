@@ -1,28 +1,47 @@
-<ion-content class="ion-padding background">
+<ion-content class="background">
+  <div class="page">
 
-  <div class="logo-container">
-    <ion-icon name="lock-closed-outline" class="logo"></ion-icon>
-    <h2 class="title">INGRESAR</h2>
-    <h3 class="subtitle">{{ rol | uppercase }}</h3>
+    <div class="login-card">
+
+      <div class="logo-container">
+        <h2 class="title">INGRESAR</h2>
+        <h3 class="subtitle">{{ rol | uppercase }}</h3>
+      </div>
+
+      <div class="form-container">
+
+        <div class="field">
+          <span class="field-label">Correo electrónico</span>
+          <ion-item lines="none" class="input-field">
+            <ion-input
+              type="email"
+              [(ngModel)]="correo"
+              placeholder="Ingrese su correo">
+            </ion-input>
+          </ion-item>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Contraseña</span>
+          <ion-item lines="none" class="input-field">
+            <ion-input
+              type="password"
+              [(ngModel)]="contrasena"
+              placeholder="Ingrese su contraseña">
+            </ion-input>
+          </ion-item>
+        </div>
+
+        <ion-button
+          expand="block"
+          class="login-button"
+          (click)="login()">
+          INGRESAR
+        </ion-button>
+
+      </div>
+
+    </div>
+
   </div>
-
-  <div class="form-container">
-    <ion-item lines="none" class="input-field">
-      <ion-input placeholder="CORREO" [(ngModel)]="correo" type="email"></ion-input>
-    </ion-item>
-
-    <ion-item lines="none" class="input-field">
-      <ion-input placeholder="CONTRASEÑA" [(ngModel)]="contrasena" type="password"></ion-input>
-    </ion-item>
-
-    <ion-button expand="block" class="btn-filled" (click)="login()">INGRESAR</ion-button>
-  </div>
-
-  <div class="footer">
-    <ion-icon name="logo-facebook"></ion-icon>
-    <ion-icon name="logo-instagram"></ion-icon>
-    <ion-icon name="logo-twitter"></ion-icon>
-    <p>WWW.PAGINAWEB.COM</p>
-  </div>
-
 </ion-content>

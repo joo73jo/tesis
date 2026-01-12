@@ -1,56 +1,92 @@
-.background {
-  --background: #1e1e8f;
-  color: white;
-  text-align: center;
+ion-content.background {
+  --background: radial-gradient(
+    at top,
+    #1e293b,
+    #020617 70%
+  );
+}
+
+.page {
+  min-height: 100%;
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-card {
+  background: #f8fafc;
+  border-radius: 32px;
+  padding: 40px 28px 32px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
 }
 
 .logo-container {
-  margin-top: 10vh;
-}
-
-.logo {
-  font-size: 4rem;
-  color: #8cb4ff;
+  text-align: center;
+  margin-bottom: 28px;
 }
 
 .title {
-  font-size: 1.6rem;
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0;
+  color: #020617;
 }
 
 .subtitle {
-  font-size: 1rem;
-  color: #b0b0ff;
-  margin-top: 0.3rem;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-top: 6px;
+  color: #1e3a8a;
 }
 
 .form-container {
-  margin-top: 15vh;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 0 2rem;
+  margin-top: 10px;
+}
+
+.field {
+  margin-bottom: 18px;
+}
+
+.field-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #020617;
 }
 
 .input-field {
-  --background: white;
-  border-radius: 10px;
-  color: black;
+  --background: #ffffff;
+  --border-radius: 14px;
+  --min-height: 54px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
-.btn-filled {
-  --background: #4361ee;
-  --border-radius: 12px;
+.input-field ion-input {
+  --color: #020617;
+  --placeholder-color: #64748b;
+  --placeholder-opacity: 1;
 }
 
-.footer {
-  position: absolute;
-  bottom: 5%;
-  width: 100%;
-  text-align: center;
-  color: #a0a0ff;
+ion-input input {
+  color: #020617 !important;
 }
 
-.footer ion-icon {
-  margin: 0 8px;
-  font-size: 1.2rem;
+.login-button {
+  margin-top: 14px;
+  height: 54px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0.5px;
+  --background: linear-gradient(
+    135deg,
+    #1e293b,
+    #1e3a8a
+  );
+  --border-radius: 14px;
+  --color: #ffffff;
 }

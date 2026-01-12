@@ -1,58 +1,108 @@
-.background {
-  --background: #1e1e8f;
-  color: white;
+/* FONDO GENERAL */
+ion-content.background {
+  --background: radial-gradient(
+    at top,
+    #1e293b,
+    #020617 70%
+  );
 }
 
+/* TÍTULO */
 .title {
   text-align: center;
-  margin-top: 2rem;
-  font-weight: bold;
-  color: white;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 12px 0 20px;
+  color: #f8fafc;
 }
 
-.materia-select {
-  margin-top: 1rem;
-  --background: #2d2da8;
-  border-radius: 10px;
-  color: white;
+/* OCULTAR TEXTO TEMPORAL */
+h1 {
+  display: none;
 }
 
-ion-select,
-ion-label {
-  color: white !important;
+/* SEARCHBAR */
+ion-searchbar {
+  --background: #020617;
+  --color: #e5e7eb;
+  --placeholder-color: #94a3b8;
+  --icon-color: #94a3b8;
+  --border-radius: 14px;
+  margin-bottom: 16px;
 }
 
-.buscador {
-  --background: #2d2da8;
-  --color: white;
-  --placeholder-color: #b0b0ff;
-  border-radius: 10px;
-  margin-top: 1rem;
-}
-
-.promedio-container {
-  text-align: right;
-  margin-right: 1rem;
-  margin-bottom: 0.5rem;
-  color: #a0a0ff;
-  font-size: 0.9rem;
-}
-
+/* SELECT MATERIA */
 ion-item {
-  --background: #2d2da8;
-  color: white;
-  margin: 0.5rem;
-  border-radius: 10px;
-  transition: 0.2s ease;
+  --background: #0f172a; /* slate oscuro */
+  --color: #e5e7eb;
+  --border-radius: 14px;
+  margin-bottom: 18px;
 }
 
-ion-item.nota-baja {
-  border: 2px solid #ff4d4d;
+ion-select {
+  --placeholder-color: #94a3b8;
+  --color: #e5e7eb;
 }
 
+ion-label {
+  color: #cbd5f5;
+  font-weight: 500;
+}
+
+/* LISTA */
+ion-list {
+  background: transparent;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+/* CARD ESTUDIANTE */
+.estudiante-header {
+  --background: #111827; /* gris azulado sobrio */
+  --border-radius: 18px;
+  margin-bottom: 10px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+}
+
+.estudiante-header h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.estudiante-header p {
+  font-size: 13px;
+  color: #9ca3af;
+  margin: 4px 0 0;
+}
+
+/* MATERIAS */
+ion-item:not(.estudiante-header) {
+  --background: #020617; /* casi negro */
+  --border-radius: 14px;
+  margin-bottom: 8px;
+}
+
+ion-item:not(.estudiante-header) p {
+  font-size: 14px;
+  color: #e5e7eb;
+}
+
+/* NOTA BAJA */
+.nota-baja {
+  --background: #3f1d1d !important; /* rojo oscuro elegante */
+}
+
+.nota-baja p {
+  color: #fecaca !important;
+  font-weight: 600;
+}
+
+/* SIN DATOS */
 .sin-datos {
   text-align: center;
-  color: #b0b0ff;
-  margin-top: 3rem;
-  font-size: 1rem;
+  margin-top: 40px;
+  color: #94a3b8;
+  font-size: 14px;
 }
