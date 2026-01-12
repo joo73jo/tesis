@@ -1,38 +1,59 @@
 <ion-content class="ion-padding background">
-  <h2 class="title">CALIFICACIONES</h2>
 
-  <ion-item lines="none" class="materia-select">
-    <ion-label>Materia</ion-label>
-    <ion-select [(ngModel)]="materiaSeleccionada" (ionChange)="filtrarCalificaciones()">
-      <ion-select-option *ngFor="let m of materias" [value]="m">{{ m }}</ion-select-option>
-    </ion-select>
-  </ion-item>
+  <h1 style="color:red; font-size:26px;">
+    COMPONENTE DOCENTE NUEVO
+  </h1>
+
+  <h2 class="title">CALIFICACIONES</h2>
 
   <ion-searchbar
     placeholder="Buscar estudiante"
     [(ngModel)]="busqueda"
-    (ionInput)="filtrarCalificaciones()"
-    class="buscador"
+    (ionInput)="filtrar()"
   ></ion-searchbar>
 
-  <div *ngIf="materiaSeleccionada !== 'Todas las materias' && calificacionesFiltradas.length > 0" class="promedio-container">
-    <p>Promedio general: <strong>{{ promedioCurso }}</strong></p>
-  </div>
-
-  <ion-list>
-    <ion-item
-      *ngFor="let nota of calificacionesFiltradas"
-      (click)="mostrarObservacion(nota)"
-      [ngClass]="{ 'nota-baja': nota.promedio < 7 }"
+  <ion-item>
+    <ion-label>Materia</ion-label>
+    <ion-select
+      [(ngModel)]="materiaSeleccionada"
+      (ionChange)="filtrar()"
     >
+      <ion-select-option
+        *ngFor="let m of materiasDisponibles"
+        [value]="m"
+      >
+        {{ m }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-list *ngFor="let e of estudiantesFiltrados">
+
+    <ion-item lines="full" class="estudiante-header">
       <ion-label>
-        <h2>{{ nota.estudiantes.nombres }} {{ nota.estudiantes.apellidos }}</h2>
-        <p>{{ nota.curso }} — Promedio: {{ nota.promedio }}</p>
+        <h2>
+          {{ e.estudiante.nombre }}
+          {{ e.estudiante.apellido }}
+        </h2>
+        <p *ngIf="e.estudiante.curso">
+          {{ e.estudiante.curso }}
+        </p>
       </ion-label>
     </ion-item>
+
+    <ion-item
+      *ngFor="let m of e.materias"
+      [ngClass]="{ 'nota-baja': m.promedio < 7 }"
+    >
+      <ion-label>
+        <p>{{ m.curso }} — Promedio: {{ m.promedio }}</p>
+      </ion-label>
+    </ion-item>
+
   </ion-list>
 
-  <div *ngIf="calificacionesFiltradas.length === 0" class="sin-datos">
+  <div *ngIf="estudiantesFiltrados.length === 0" class="sin-datos">
     <p>No hay calificaciones disponibles.</p>
   </div>
+
 </ion-content>

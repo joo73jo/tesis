@@ -12,6 +12,30 @@ import {
 } from '@ionic/angular/standalone';
 import { AuthService } from '../core/auth.service';
 
+type Estudiante = {
+  _id: string;
+  nombre: string;
+  apellido: string;
+  curso?: string;
+};
+
+type MateriaNota = {
+  curso: string;
+  promedio: number;
+};
+
+type EstudianteNotas = {
+  estudiante: Estudiante;
+  materias: MateriaNota[];
+};
+
+type CalificacionApi = {
+  estudiante: Estudiante;
+  docente: any;
+  materia: string;
+  promedioFinal: number;
+};
+
 @Component({
   selector: 'app-calificaciones-docente',
   standalone: true,
@@ -31,13 +55,12 @@ import { AuthService } from '../core/auth.service';
 })
 export class CalificacionesDocentePage implements OnInit {
 
-  materias: string[] = [];
   materiaSeleccionada = 'Todas las materias';
   busqueda = '';
 
-  calificaciones: any[] = [];
-  calificacionesFiltradas: any[] = [];
-  promedioCurso = 0;
+  estudiantes: EstudianteNotas[] = [];
+  estudiantesFiltrados: EstudianteNotas[] = [];
+  materiasDisponibles: string[] = ['Todas las materias'];
 
   constructor(private authService: AuthService) {}
 
@@ -48,52 +71,80 @@ export class CalificacionesDocentePage implements OnInit {
 
     this.authService.obtenerCalificacionesDocente(usuario._id)
       .subscribe({
-        next: (data: any[]) => {
-          this.calificaciones = data.map((c: any) => ({
-            estudiantes: c.estudiante,
-            curso: c.materia,
-            promedio: c.promedioFinal
+        next: (data: CalificacionApi[]) => {
+
+          const mapa = new Map<string, EstudianteNotas>();
+          const materiasSet = new Set<string>();
+
+          data.forEach(c => {
+            if (!c.estudiante || !c.estudiante._id) return;
+
+            const promedio = Number(c.promedioFinal);
+            if (isNaN(promedio)) return;
+
+            const estudianteId = c.estudiante._id;
+            const materia = c.materia;
+
+            materiasSet.add(materia);
+
+            if (!mapa.has(estudianteId)) {
+              mapa.set(estudianteId, {
+                estudiante: {
+                  _id: estudianteId,
+                  nombre: c.estudiante.nombre,
+                  apellido: c.estudiante.apellido,
+                  curso: c.estudiante.curso
+                },
+                materias: []
+              });
+            }
+
+            mapa.get(estudianteId)!.materias.push({
+              curso: materia,
+              promedio: Number(promedio.toFixed(2))
+            });
+          });
+
+          this.estudiantes = Array.from(mapa.values()).map(e => ({
+            ...e,
+            materias: e.materias.sort((a, b) =>
+              a.curso.localeCompare(b.curso)
+            )
           }));
 
-          this.materias = [
+          this.materiasDisponibles = [
             'Todas las materias',
-            ...new Set(this.calificaciones.map(c => c.curso))
+            ...Array.from(materiasSet).sort()
           ];
 
-          this.filtrarCalificaciones();
+          this.filtrar();
         },
-        error: () => {}
+        error: err => {
+          console.error('Error al obtener calificaciones', err);
+          this.estudiantes = [];
+          this.estudiantesFiltrados = [];
+        }
       });
   }
 
-  filtrarCalificaciones() {
-    this.calificacionesFiltradas = this.calificaciones.filter(c => {
-      const coincideMateria =
-        this.materiaSeleccionada === 'Todas las materias' ||
-        c.curso === this.materiaSeleccionada;
+  filtrar() {
+    const texto = this.busqueda.trim().toLowerCase();
 
-      const coincideBusqueda =
-        !this.busqueda ||
-        `${c.estudiantes.nombres} ${c.estudiantes.apellidos}`
-          .toLowerCase()
-          .includes(this.busqueda.toLowerCase());
-
-      return coincideMateria && coincideBusqueda;
-    });
-
-    if (this.calificacionesFiltradas.length > 0) {
-      const suma = this.calificacionesFiltradas.reduce(
-        (acc, c) => acc + c.promedio, 0
-      );
-      this.promedioCurso = Number(
-        (suma / this.calificacionesFiltradas.length).toFixed(2)
-      );
-    } else {
-      this.promedioCurso = 0;
-    }
-  }
-
-  mostrarObservacion(nota: any) {
-    // Se deja porque el HTML la usa
+    this.estudiantesFiltrados = this.estudiantes
+      .map(e => {
+        const materiasFiltradas = e.materias.filter(m =>
+          this.materiaSeleccionada === 'Todas las materias' ||
+          m.curso === this.materiaSeleccionada
+        );
+        return { ...e, materias: materiasFiltradas };
+      })
+      .filter(e => {
+        const nombreCompleto =
+          `${e.estudiante.nombre} ${e.estudiante.apellido}`.toLowerCase();
+        return (
+          (!texto || nombreCompleto.includes(texto)) &&
+          e.materias.length > 0
+        );
+      });
   }
 }
