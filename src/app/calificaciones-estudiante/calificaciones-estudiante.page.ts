@@ -6,7 +6,7 @@ import {
   IonRow,
   IonCol,
   IonCard,
-  AlertController
+  AlertController,
 } from '@ionic/angular/standalone';
 import { AuthService } from '../core/auth.service';
 
@@ -15,17 +15,9 @@ import { AuthService } from '../core/auth.service';
   standalone: true,
   templateUrl: './calificaciones-estudiante.page.html',
   styleUrls: ['./calificaciones-estudiante.page.scss'],
-  imports: [
-    CommonModule,
-    IonContent,
-    IonGrid,
-    IonRow,
-    IonCol,
-    IonCard
-  ],
+  imports: [CommonModule, IonContent, IonGrid, IonRow, IonCol, IonCard],
 })
 export class CalificacionesEstudiantePage {
-
   calificaciones: any[] = [];
   nombreUsuario = '';
 
@@ -43,54 +35,60 @@ export class CalificacionesEstudiantePage {
     const usuario = sesion.usuario ?? sesion;
     this.nombreUsuario = `${usuario.nombre} ${usuario.apellido}`;
 
-    this.authService.obtenerCalificacionesEstudiante(usuario._id)
-      .subscribe({
-        next: (response: any) => {
+    this.authService.obtenerCalificacionesEstudiante(usuario._id).subscribe({
+      next: (response: any) => {
+        const lista = response.calificaciones ?? [];
 
-          // 🔴 AQUÍ ESTABA TODO EL PROBLEMA
-          const lista = response.calificaciones ?? [];
+        this.calificaciones = lista.map((c: any) => ({
+          curso: c.materia,
+          promedio: c.promedioFinal,
+          parcial1: c.parcial1,
+          parcial2: c.parcial2,
+          parcial3: c.parcial3,
+        }));
+      },
+      error: (err) => {
+        console.error('ERROR CALIFICACIONES ESTUDIANTE', err);
+      },
+    });
+  }
 
-          this.calificaciones = lista.map((c: any) => ({
-            curso: c.materia,
-            promedio: c.promedioFinal,
-            parcial1: c.parcial1,
-            parcial2: c.parcial2,
-            parcial3: c.parcial3
-          }));
-        },
-        error: err => {
-          console.error('ERROR CALIFICACIONES ESTUDIANTE', err);
-        }
-      });
+  toNumber(value: any): number {
+    const n = Number(value);
+    return Number.isFinite(n) ? n : 0;
+  }
+
+  private bloqueParcial(nombre: string, p: any): string {
+    const deberes = p?.deberes ?? 0;
+    const examenes = p?.examenes ?? 0;
+    const trabajos = p?.trabajosClase ?? 0;
+    const proyectos = p?.proyectos ?? 0;
+    const promedio = p?.promedio ?? 0;
+
+    // SOLO tags simples (permitidos por el sanitizer del alert)
+    return (
+      `<b>${nombre}</b><br>` +
+      `Deberes: ${deberes}<br>` +
+      `Exámenes: ${examenes}<br>` +
+      `Trabajos: ${trabajos}<br>` +
+      `Proyectos: ${proyectos}<br>` +
+      `<b>Promedio: ${promedio}</b><br><br>`
+    );
   }
 
   async mostrarObservacion(nota: any) {
+    const promedioFinal = nota.promedio ?? 0;
+
+    const message =
+      this.bloqueParcial('Parcial 1', nota.parcial1) +
+      this.bloqueParcial('Parcial 2', nota.parcial2) +
+      this.bloqueParcial('Parcial 3', nota.parcial3) +
+      `<b>PROMEDIO FINAL: ${promedioFinal}</b>`;
+
     const alert = await this.alertController.create({
       header: nota.curso,
-      message: `
-        <strong>Parcial 1</strong><br>
-        Deberes: ${nota.parcial1?.deberes ?? 0}<br>
-        Exámenes: ${nota.parcial1?.examenes ?? 0}<br>
-        Trabajos: ${nota.parcial1?.trabajosClase ?? 0}<br>
-        Proyectos: ${nota.parcial1?.proyectos ?? 0}<br>
-        Promedio: ${nota.parcial1?.promedio ?? 0}<br><br>
-
-        <strong>Parcial 2</strong><br>
-        Deberes: ${nota.parcial2?.deberes ?? 0}<br>
-        Exámenes: ${nota.parcial2?.examenes ?? 0}<br>
-        Trabajos: ${nota.parcial2?.trabajosClase ?? 0}<br>
-        Proyectos: ${nota.parcial2?.proyectos ?? 0}<br>
-        Promedio: ${nota.parcial2?.promedio ?? 0}<br><br>
-
-        <strong>Parcial 3</strong><br>
-        Deberes: ${nota.parcial3?.deberes ?? 0}<br>
-        Exámenes: ${nota.parcial3?.examenes ?? 0}<br>
-        Trabajos: ${nota.parcial3?.trabajosClase ?? 0}<br>
-        Proyectos: ${nota.parcial3?.proyectos ?? 0}<br>
-        Promedio: ${nota.parcial3?.promedio ?? 0}<br><br>
-
-        <strong>Promedio Final: ${nota.promedio}</strong>
-      `,
+      message,
+      cssClass: 'alert-notas',
       buttons: ['OK'],
     });
 

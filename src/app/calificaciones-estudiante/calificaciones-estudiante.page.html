@@ -5,7 +5,11 @@
   <ion-grid *ngIf="calificaciones.length > 0; else sinDatos">
     <ion-row>
       <ion-col size="6" *ngFor="let nota of calificaciones">
-        <ion-card class="nota-card" (click)="mostrarObservacion(nota)">
+        <ion-card
+          class="nota-card"
+          [class.reprobado]="toNumber(nota.promedio) < 14"
+          (click)="mostrarObservacion(nota)"
+        >
           <div class="nota">{{ nota.promedio }}</div>
           <div class="materia">{{ nota.curso }}</div>
         </ion-card>

@@ -1,25 +1,56 @@
-<ion-content class="ion-padding background">
-  <h2 class="title">MENÚ DE INFORMACIÓN</h2>
+<ion-content class="background">
+  <div class="screen">
+    <div class="card">
 
-  <ion-list class="menu-list">
-    <ion-item button detail (click)="abrirLink('https://www.uesme.edu.ec/index.php/about/mision')">
-      <ion-icon name="flag-outline" slot="start"></ion-icon>
-      <ion-label>MISIÓN</ion-label>
-    </ion-item>
+      <div class="header">
+        <h1>MENÚ DE INFORMACIÓN</h1>
+      </div>
 
-    <ion-item button detail (click)="abrirLink('https://www.uesme.edu.ec/index.php/about/vision')">
-      <ion-icon name="ribbon-outline" slot="start"></ion-icon>
-      <ion-label>VISIÓN</ion-label>
-    </ion-item>
+      <!-- CUADRO 1: Información institucional -->
+      <div class="section">
+        <div class="section-title">Información institucional</div>
 
-    <ion-item button detail (click)="abrirLink('https://www.uesme.edu.ec/#.')">
-      <ion-icon name="newspaper-outline" slot="start"></ion-icon>
-      <ion-label>NOTICIAS</ion-label>
-    </ion-item>
+        <ion-button class="btn-outline" expand="block" (click)="abrir(urlMision)">
+          MISIÓN
+        </ion-button>
 
-    <ion-item button detail (click)="abrirLink('https://www.uesme.edu.ec/')">
-      <ion-icon name="call-outline" slot="start"></ion-icon>
-      <ion-label>CONTACTO</ion-label>
-    </ion-item>
-  </ion-list>
+        <ion-button class="btn-outline" expand="block" (click)="abrir(urlVision)">
+          VISIÓN
+        </ion-button>
+
+        <ion-button class="btn-outline" expand="block" (click)="abrir(urlSobreNosotros)">
+          SOBRE NOSOTROS
+        </ion-button>
+      </div>
+
+      <!-- CUADRO 2: Noticias -->
+      <div class="section section-news">
+        <div class="section-title strong">Noticias y eventos</div>
+
+        <div class="news-card" (click)="abrir(urlNoticias)" role="button">
+          <div class="news-img">
+            <img [src]="ultimaNoticia.imagen" alt="Última noticia" />
+          </div>
+
+          <div class="news-body">
+            <div class="chip">Última noticia</div>
+            <div class="news-title">{{ ultimaNoticia.titulo }}</div>
+            <div class="news-date">{{ ultimaNoticia.fecha }}</div>
+            <div class="news-excerpt">
+              {{ ultimaNoticia.resumen }}
+            </div>
+
+            <ion-button
+              class="btn-primary"
+              expand="block"
+              (click)="abrir(urlNoticias); $event.stopPropagation()"
+            >
+              VER NOTICIAS Y EVENTOS
+            </ion-button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </ion-content>

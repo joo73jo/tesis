@@ -1,36 +1,68 @@
-.background {
-  --background: #1e1e8f;
-  color: white;
-  text-align: center;
+ion-content.background {
+  --background: radial-gradient(at top, #1e293b, #020617 70%);
 }
 
 .title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-top: 2rem;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 18px 0 6px;
 }
 
 .subtitle {
-  color: #a0a0ff;
-  font-size: 1rem;
-  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 0 0 22px;
 }
 
 .nota-card {
-  background: #2d2da8;
-  border-radius: 15px;
-  padding: 1rem;
-  color: white;
+  border-radius: 18px;
+  padding: 18px 14px;
   text-align: center;
-  margin-bottom: 1rem;
+  background: #cfcfcf;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.35);
+  border: 2px solid transparent;
 }
 
 .nota {
-  font-size: 1.6rem;
-  font-weight: bold;
+  font-size: 34px;
+  font-weight: 900;
+  color: #0f172a;
+  margin-bottom: 6px;
 }
 
 .materia {
-  font-size: 0.9rem;
-  color: #b0b0ff;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+  color: rgba(15, 23, 42, 0.85);
+  text-transform: uppercase;
+}
+
+.reprobado {
+  border-color: #ef4444;
+  box-shadow: 0 16px 34px rgba(239, 68, 68, 0.22);
+}
+
+.empty {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.75);
+  margin-top: 22px;
+  font-weight: 700;
+}
+
+/* RESPONSIVE */
+@media (max-width: 420px) {
+  .nota {
+    font-size: 30px;
+  }
+
+  .nota-card {
+    padding: 16px 12px 18px;
+  }
 }
