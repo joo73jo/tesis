@@ -1,14 +1,36 @@
-<ion-content class="ion-padding background">
-  <div class="perfil-container">
-    <ion-icon name="person-circle-outline" class="perfil-icon"></ion-icon>
-    <h2>{{ nombreCompleto }}</h2>
-    <p>{{ especialidad }}</p>
+<ion-content class="perfil-page">
+
+  <!-- HEADER -->
+  <div class="perfil-header">
+    <h1 class="nombre">{{ nombreCompleto }}</h1>
+    <p class="rol">DOCENTE</p>
   </div>
 
-  <ion-card class="materias">
-    <h3>MATERIAS</h3>
-    <p>{{ cursoAsignado }}</p>
-  </ion-card>
+  <!-- BODY -->
+  <div class="perfil-body">
 
-  <ion-button expand="block" color="danger" (click)="cerrarSesion()">CERRAR SESIÓN</ion-button>
+    <h2 class="seccion-titulo">Materias asignadas</h2>
+    <p class="contador">{{ materias.length }} materias asignadas</p>
+
+    <div class="materias-lista">
+      <div class="materia" *ngFor="let m of materias">
+        {{ m }}
+      </div>
+    </div>
+
+    <p class="frase">
+      “La educación no cambia el mundo, cambia a las personas que van a cambiar el mundo.”
+    </p>
+
+    <ion-button
+      expand="block"
+      color="danger"
+      class="btn-logout"
+      (click)="cerrarSesion()"
+    >
+      CERRAR SESIÓN
+    </ion-button>
+
+  </div>
+
 </ion-content>

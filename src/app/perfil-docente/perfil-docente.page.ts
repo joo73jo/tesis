@@ -1,26 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {
-  IonContent,
-  IonButton,
-  IonCard,
-  IonIcon
-} from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { IonContent, IonButton } from '@ionic/angular/standalone';
 import { AuthService } from '../core/auth.service';
 
 @Component({
   selector: 'app-perfil-docente',
   standalone: true,
+  imports: [CommonModule, IonContent, IonButton],
   templateUrl: './perfil-docente.page.html',
   styleUrls: ['./perfil-docente.page.scss'],
-  imports: [CommonModule, IonContent, IonButton, IonCard, IonIcon],
 })
 export class PerfilDocentePage implements OnInit {
 
   nombreCompleto = '';
-  especialidad = '';
-  cursoAsignado = '';
+  materias: string[] = [];
 
   constructor(
     private authService: AuthService,
@@ -30,16 +24,15 @@ export class PerfilDocentePage implements OnInit {
   async ngOnInit() {
     await this.authService.cargarSesion();
 
-    const usuario = this.authService.usuario;
-    if (!usuario) return;
+    const u = this.authService.usuario;
+    if (!u) return;
 
-    this.nombreCompleto = `${usuario.nombres} ${usuario.apellidos}`;
-    this.especialidad = usuario.especialidad;
-    this.cursoAsignado = usuario.curso_asignado;
+    this.nombreCompleto = `${u.nombre} ${u.apellido}`;
+    this.materias = Array.isArray(u.materias) ? u.materias : [];
   }
 
   cerrarSesion() {
     this.authService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigateByUrl('/login', { replaceUrl: true });
   }
 }
