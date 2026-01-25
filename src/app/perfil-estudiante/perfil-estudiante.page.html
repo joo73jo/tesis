@@ -1,14 +1,53 @@
-<ion-content class="ion-padding background">
-  <div class="perfil-container">
-    <ion-icon name="person-circle-outline" class="perfil-icon"></ion-icon>
-    <h2>{{ nombreCompleto }}</h2>
-    <p>{{ curso }}</p>
+<ion-content class="perfil-page">
+
+  <!-- HEADER -->
+  <div class="perfil-header">
+    <h1 class="nombre">{{ nombreCompleto }}</h1>
+    <p class="rol">ESTUDIANTE</p>
   </div>
 
-  <ion-card class="estado">
-    <h3>{{ estado }}</h3>
-    <p>Promedio general: {{ promedioGeneral }}</p>
-  </ion-card>
+  <!-- BODY -->
+  <div class="perfil-body">
 
-  <ion-button expand="block" color="danger" (click)="cerrarSesion()">CERRAR SESIÓN</ion-button>
+    <h2 class="seccion-titulo">Información académica</h2>
+    <p class="contador">{{ curso }}</p>
+
+    <div class="materias-lista">
+      <div class="materia">
+        Promedio general: {{ promedioGeneral }}
+      </div>
+
+      <div
+        class="materia"
+        [ngClass]="{
+          aprobado: promedioGeneral >= 14,
+          reprobado: promedioGeneral < 14
+        }"
+      >
+        {{ rendimiento }}
+      </div>
+
+      <div class="materia">
+        Estado académico: ACTIVO  
+        <span class="explicacion">
+          (matrícula vigente y habilitada)
+        </span>
+      </div>
+    </div>
+
+    <p class="frase">
+      “El esfuerzo constante hoy es el éxito de mañana.”
+    </p>
+
+    <ion-button
+      expand="block"
+      color="danger"
+      class="btn-logout"
+      (click)="cerrarSesion()"
+    >
+      CERRAR SESIÓN
+    </ion-button>
+
+  </div>
+
 </ion-content>

@@ -1,32 +1,115 @@
-.background {
-  --background: #1e1e8f;
-  color: white;
+.perfil-page {
+  --background: #ffffff;
+}
+
+/* HEADER */
+.perfil-header {
+  height: 240px;
+  background: radial-gradient(
+    120% 120% at 50% 0%,
+    #1b2a4e 0%,
+    #060b1a 60%
+  );
+  border-bottom-left-radius: 60px;
+  border-bottom-right-radius: 60px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.nombre {
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.rol {
+  margin-top: 6px;
+  color: #9fb2ff;
+  letter-spacing: 2px;
+  font-size: 12px;
+}
+
+/* BODY */
+.perfil-body {
+  padding: 24px;
+}
+
+/* SECCIÓN */
+.seccion-titulo {
   text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #1b2a4e;
+  margin: 10px 0 6px;
+  position: relative;
 }
 
-.perfil-container {
-  margin-top: 10vh;
+.seccion-titulo::after {
+  content: '';
+  display: block;
+  width: 42px;
+  height: 3px;
+  background: #3b82f6;
+  margin: 8px auto 0;
+  border-radius: 2px;
 }
 
-.perfil-icon {
-  font-size: 6rem;
-  color: #8cb4ff;
+.contador {
+  text-align: center;
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 18px;
 }
 
-h2 {
-  margin-top: 0.5rem;
-  font-weight: bold;
+/* CARDS */
+.materias-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
 }
 
-.estado {
-  background: #2d2da8;
-  border-radius: 15px;
-  color: white;
-  padding: 1rem;
-  margin-top: 3rem;
+.materia {
+  background: #f3f5f9;
+  padding: 14px;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 500;
+  color: #1b2a4e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
-ion-button {
-  margin-top: 2rem;
-  --border-radius: 10px;
+.materia.aprobado {
+  border-left: 4px solid #22c55e;
+}
+
+.materia.reprobado {
+  border-left: 4px solid #ef4444;
+}
+
+.explicacion {
+  display: block;
+  font-size: 11px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+/* FRASE */
+.frase {
+  text-align: center;
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 30px;
+  padding: 0 10px;
+}
+
+/* BOTÓN */
+.btn-logout {
+  height: 48px;
+  font-weight: 600;
 }

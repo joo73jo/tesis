@@ -1,28 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {
-  IonContent,
-  IonButton,
-  IonCard,
-  IonIcon
-} from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { IonContent, IonButton } from '@ionic/angular/standalone';
 import { AuthService } from '../core/auth.service';
 
 @Component({
   selector: 'app-perfil-estudiante',
   standalone: true,
+  imports: [CommonModule, IonContent, IonButton],
   templateUrl: './perfil-estudiante.page.html',
   styleUrls: ['./perfil-estudiante.page.scss'],
-  imports: [CommonModule, IonContent, IonButton, IonCard, IonIcon],
 })
 export class PerfilEstudiantePage implements OnInit {
 
   nombreCompleto = '';
   curso = '';
-  paralelo = '';
-  estado = '';
-  promedioGeneral = 0;   // 👈 VARIABLE QUE FALTABA
+  promedioGeneral = 0;
+  rendimiento = '';
 
   constructor(
     private authService: AuthService,
@@ -32,20 +26,58 @@ export class PerfilEstudiantePage implements OnInit {
   async ngOnInit() {
     await this.authService.cargarSesion();
 
-    const usuario = this.authService.usuario;
-    if (!usuario) return;
+    const sesion = this.authService.usuario;
+    if (!sesion) return;
 
-    this.nombreCompleto = `${usuario.nombres} ${usuario.apellidos}`;
-    this.curso = usuario.curso;
-    this.paralelo = usuario.paralelo;
-    this.estado = usuario.estado;
+    const u = sesion.usuario ?? sesion;
 
-    // Por ahora queda en 0 hasta calcularlo desde calificaciones
-    this.promedioGeneral = usuario.promedioGeneral ?? 0;
+    this.nombreCompleto = `${u.nombre ?? ''} ${u.apellido ?? ''}`.trim();
+    this.curso = u.curso ?? '';
+
+    this.calcularPromedioGeneral(u._id);
+  }
+
+  calcularPromedioGeneral(estudianteId: string) {
+    this.authService.obtenerCalificacionesEstudiante(estudianteId).subscribe({
+      next: (response: any) => {
+        const calificaciones = response.calificaciones ?? [];
+
+        const promedios: number[] = calificaciones
+          .map((c: any) => Number(c.promedioFinal))
+          .filter((p: number) => Number.isFinite(p) && p > 0);
+
+        if (promedios.length === 0) {
+          this.promedioGeneral = 0;
+          this.rendimiento = 'SIN EVALUACIONES REGISTRADAS';
+          return;
+        }
+
+        const suma = promedios.reduce(
+          (a: number, b: number) => a + b,
+          0
+        );
+
+        this.promedioGeneral = Number(
+          (suma / promedios.length).toFixed(2)
+        );
+
+        if (this.promedioGeneral < 14) {
+          this.rendimiento = 'NECESITA REFUERZO ACADÉMICO';
+        } else if (this.promedioGeneral < 18) {
+          this.rendimiento = 'RENDIMIENTO ADECUADO';
+        } else {
+          this.rendimiento = 'RENDIMIENTO DESTACADO';
+        }
+      },
+      error: () => {
+        this.promedioGeneral = 0;
+        this.rendimiento = 'NO DISPONIBLE';
+      },
+    });
   }
 
   cerrarSesion() {
     this.authService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigateByUrl('/login', { replaceUrl: true });
   }
 }
