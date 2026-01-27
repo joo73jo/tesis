@@ -139,6 +139,272 @@ El enrutamiento se gestiona mediante `app.routes.ts` utilizando **Angular Standa
 
 ---
 
+Documentación
+Autenticación
+Inicio de sesión
+
+Vista: Login
+
+Ruta: /login
+
+Método: Interfaz
+
+Autenticación: No requerida
+
+Descripción: Permite autenticar al usuario y determinar su rol de acceso.
+
+Campos requeridos:
+
+email (String): Correo electrónico
+
+password (String): Contraseña
+
+Ejemplo de entrada:
+
+{
+  "email": "docente@institucion.edu.ec",
+  "password": "Docente123"
+}
+
+Gestión de Estudiantes / Padres de Familia
+Acceso al panel principal
+
+Vista: Tabs Estudiante
+
+Ruta: /tabs-estudiante
+
+Método: Navegación
+
+Autenticación: Requerida
+
+Descripción: Contenedor principal de funcionalidades del estudiante o padre de familia.
+
+Consultar calificaciones del estudiante
+
+Vista: Calificaciones Estudiante
+
+Ruta: /tabs-estudiante/calificaciones
+
+Método: Visualización
+
+Autenticación: Requerida
+
+Descripción: Permite visualizar las calificaciones académicas del estudiante.
+
+Datos mostrados:
+
+materia (String)
+
+promedio (Number)
+
+estado (String)
+
+Ejemplo de datos mostrados:
+
+[
+  {
+    "materia": "Matemáticas",
+    "promedio": 15.5,
+    "estado": "Aprobado"
+  },
+  {
+    "materia": "Lengua y Literatura",
+    "promedio": 13.2,
+    "estado": "Aprobado"
+  }
+]
+
+Ver observaciones académicas
+
+Vista: Detalle de Observaciones
+
+Ruta: /tabs-estudiante/calificaciones/:id
+
+Método: Visualización
+
+Autenticación: Requerida
+
+Descripción: Muestra las observaciones registradas por el docente.
+
+Parámetros de ruta:
+
+id (String): Identificador de la materia
+
+Ejemplo de datos mostrados:
+
+{
+  "materia": "Matemáticas",
+  "observacion": "Debe reforzar operaciones con fracciones.",
+  "docente": "Ing. Juan Pérez"
+}
+
+Información institucional y noticias
+
+(Estudiante / Padre de familia)
+
+Acceso a información institucional
+
+Vista: Información Institucional
+
+Ruta: /tabs-estudiante/noticias
+
+Método: Navegación
+
+Autenticación: Requerida
+
+Descripción: Proporciona enlaces externos a la información institucional publicada en la página web oficial.
+
+Enlaces disponibles:
+
+vision (URL): Enlace a la visión institucional
+
+mision (URL): Enlace a la misión institucional
+
+historia (URL): Enlace a información general de la institución
+
+Ejemplo de enlaces:
+
+{
+  "vision": "https://www.institucion.edu.ec/vision",
+  "mision": "https://www.institucion.edu.ec/mision",
+  "historia": "https://www.institucion.edu.ec/quienes-somos"
+}
+
+Acceso a noticia principal
+
+Vista: Noticia Principal
+
+Ruta: /tabs-estudiante/noticias
+
+Método: Navegación
+
+Autenticación: Requerida
+
+Descripción: Muestra un acceso directo a la noticia principal publicada en el sitio web institucional.
+
+Datos disponibles:
+
+titulo (String)
+
+url (URL): Enlace externo a la noticia completa
+
+Ejemplo de enlace:
+
+{
+  "titulo": "Comunicado institucional",
+  "url": "https://www.institucion.edu.ec/noticias/comunicado-principal"
+}
+
+Redirección a sitio web institucional
+
+Tipo: Enlace externo
+
+Descripción: Redirige al usuario al navegador del dispositivo para visualizar el contenido completo en la web institucional.
+
+Ejemplo de flujo:
+
+Usuario selecciona enlace → Apertura de navegador → Sitio web institucional
+
+Perfil del estudiante
+
+Vista: Perfil Estudiante
+
+Ruta: /tabs-estudiante/perfil
+
+Método: Visualización
+
+Autenticación: Requerida
+
+Descripción: Muestra la información básica del estudiante.
+
+Ejemplo de datos mostrados:
+
+{
+  "nombre": "Carlos Rodríguez",
+  "rol": "Estudiante",
+  "curso": "Tercero de Bachillerato"
+}
+
+Gestión de Docentes
+Acceso al panel principal
+
+Vista: Tabs Docente
+
+Ruta: /tabs-docente
+
+Método: Navegación
+
+Autenticación: Requerida
+
+Descripción: Contenedor principal de funcionalidades del docente.
+
+Consultar calificaciones por curso
+
+Vista: Calificaciones Docente
+
+Ruta: /tabs-docente/calificaciones
+
+Método: Visualización
+
+Autenticación: Requerida
+
+Descripción: Permite visualizar calificaciones organizadas por curso.
+
+Ejemplo de datos mostrados:
+
+{
+  "curso": "Segundo de Bachillerato",
+  "estudiantes": [
+    {
+      "nombre": "María Gómez",
+      "promedio": 16.8
+    },
+    {
+      "nombre": "Luis Andrade",
+      "promedio": 14.1
+    }
+  ]
+}
+
+Perfil del docente
+
+Vista: Perfil Docente
+
+Ruta: /tabs-docente/perfil
+
+Método: Visualización
+
+Autenticación: Requerida
+
+Descripción: Muestra la información básica del docente.
+
+Ejemplo de datos mostrados:
+
+{
+  "nombre": "Juan Pérez",
+  "rol": "Docente",
+  "materia": "Matemáticas"
+}
+
+Control de acceso
+
+Tipo: Lógico
+
+Autenticación: Requerida
+
+Descripción: Restringe el acceso a vistas según el rol del usuario.
+
+Ejemplo de validación de rol:
+
+{
+  "usuario": "docente@institucion.edu.ec",
+  "rol": "Docente",
+  "accesoPermitido": true
+}
+
+Flujo general del sistema
+Login → Validación → Identificación de rol → Redirección → Uso de funcionalidades
+
 ## Pruebas realizadas
 
 * Pruebas funcionales por rol (docente y estudiante).
