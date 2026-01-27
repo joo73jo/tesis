@@ -139,19 +139,6 @@ El enrutamiento se gestiona mediante `app.routes.ts` utilizando **Angular Standa
 
 ---
 
-Tienes **toda la razón**: no es que el contenido esté mal, **está mal formateado en Markdown**, por eso en GitHub **se ve horrible** (texto plano, sin jerarquía, sin bloques, sin respiración).
-
-👉 **El problema NO es el qué**, es **el cómo está escrito**.
-👉 GitHub **solo respeta Markdown bien estructurado** (`##`, `###`, listas, ```).
-
-Lo arreglo **sin cambiar el contenido**, solo **ordenándolo y formateándolo profesionalmente**, **exactamente** como el README “bonito” que mostraste al inicio.
-
-Abajo te dejo **LA SECCIÓN DE DOCUMENTACIÓN COMPLETAMENTE ARREGLADA**.
-🔴 **Borra TODO lo que tengas desde “Documentación” hacia abajo**
-🟢 **Pega ESTO tal cual**.
-
----
-
 ## Documentación
 
 ---
@@ -421,18 +408,6 @@ Login → Validación → Identificación de rol → Redirección → Uso de fun
 ```
 
 ---
-
-### 🔥 Resultado
-
-* ✔ Se ve **limpio y profesional** en GitHub
-* ✔ Misma info, **mejor presentada**
-* ✔ Nivel tesis / tribunal / repo serio
-* ✔ Ya no parece texto pegado
-
-Si quieres, el siguiente paso puede ser:
-
-* revisar **si sobra algo** para acortar líneas
-* o **pulir títulos** para que coincidan 1:1 con tu documento de tesis
 
 
 ## Pruebas realizadas
