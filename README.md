@@ -138,66 +138,79 @@ src/app/
 El enrutamiento se gestiona mediante `app.routes.ts` utilizando **Angular Standalone Routing**.
 
 ---
-Documentación
-Autenticación
-Inicio de sesión
 
-Vista: Login
+Tienes **toda la razón**: no es que el contenido esté mal, **está mal formateado en Markdown**, por eso en GitHub **se ve horrible** (texto plano, sin jerarquía, sin bloques, sin respiración).
 
-Ruta: /login
+👉 **El problema NO es el qué**, es **el cómo está escrito**.
+👉 GitHub **solo respeta Markdown bien estructurado** (`##`, `###`, listas, ```).
 
-Método: Interfaz
+Lo arreglo **sin cambiar el contenido**, solo **ordenándolo y formateándolo profesionalmente**, **exactamente** como el README “bonito” que mostraste al inicio.
 
-Autenticación: No requerida
+Abajo te dejo **LA SECCIÓN DE DOCUMENTACIÓN COMPLETAMENTE ARREGLADA**.
+🔴 **Borra TODO lo que tengas desde “Documentación” hacia abajo**
+🟢 **Pega ESTO tal cual**.
 
-Descripción: Permite autenticar al usuario y determinar su rol de acceso.
+---
 
-Campos requeridos
+## Documentación
 
-email (String): Correo electrónico
+---
 
-password (String): Contraseña
+## Autenticación
 
-Ejemplo de entrada
+### Inicio de sesión
+
+* **Vista:** Login
+* **Ruta:** `/login`
+* **Método:** Interfaz
+* **Autenticación:** No requerida
+* **Descripción:** Permite autenticar al usuario y determinar su rol de acceso.
+
+#### Campos requeridos
+
+* `email` (String): Correo electrónico
+* `password` (String): Contraseña
+
+#### Ejemplo de entrada
+
+```json
 {
   "email": "docente@institucion.edu.ec",
   "password": "Docente123"
 }
+```
 
-Gestión de Estudiantes / Padres de Familia
-Acceso al panel principal
+---
 
-Vista: Tabs Estudiante
+## Gestión de Estudiantes / Padres de Familia
 
-Ruta: /tabs-estudiante
+### Acceso al panel principal
 
-Método: Navegación
+* **Vista:** Tabs Estudiante
+* **Ruta:** `/tabs-estudiante`
+* **Método:** Navegación
+* **Autenticación:** Requerida
+* **Descripción:** Contenedor principal de funcionalidades del estudiante o padre de familia.
 
-Autenticación: Requerida
+---
 
-Descripción: Contenedor principal de funcionalidades del estudiante o padre de familia.
+### Consultar calificaciones del estudiante
 
-Consultar calificaciones del estudiante
+* **Vista:** Calificaciones Estudiante
+* **Ruta:** `/tabs-estudiante/calificaciones`
+* **Método:** Visualización
+* **Autenticación:** Requerida
+* **Descripción:** Permite visualizar las calificaciones académicas del estudiante.
 
-Vista: Calificaciones Estudiante
+#### Datos mostrados
 
-Ruta: /tabs-estudiante/calificaciones
+* `materia` (String)
+* `promedio` (Number)
+* `estado` (String)
 
-Método: Visualización
+#### Ejemplo de datos mostrados
 
-Autenticación: Requerida
-
-Descripción: Permite visualizar las calificaciones académicas del estudiante.
-
-Datos mostrados
-
-materia (String)
-
-promedio (Number)
-
-estado (String)
-
-Ejemplo de datos mostrados
+```json
 [
   {
     "materia": "Matemáticas",
@@ -210,138 +223,142 @@ Ejemplo de datos mostrados
     "estado": "Aprobado"
   }
 ]
+```
 
-Ver observaciones académicas
+---
 
-Vista: Detalle de Observaciones
+### Ver observaciones académicas
 
-Ruta: /tabs-estudiante/calificaciones/:id
+* **Vista:** Detalle de Observaciones
+* **Ruta:** `/tabs-estudiante/calificaciones/:id`
+* **Método:** Visualización
+* **Autenticación:** Requerida
+* **Descripción:** Muestra las observaciones registradas por el docente.
 
-Método: Visualización
+#### Parámetros de ruta
 
-Autenticación: Requerida
+* `id` (String): Identificador de la materia
 
-Descripción: Muestra las observaciones registradas por el docente.
+#### Ejemplo de datos mostrados
 
-Parámetros de ruta
-
-id (String): Identificador de la materia
-
-Ejemplo de datos mostrados
+```json
 {
   "materia": "Matemáticas",
   "observacion": "Debe reforzar operaciones con fracciones.",
   "docente": "Ing. Juan Pérez"
 }
+```
 
-Información institucional y noticias
+---
 
-(Estudiante / Padre de familia)
+## Información institucional y noticias
 
-Acceso a información institucional
+*(Estudiante / Padre de familia)*
 
-Vista: Información Institucional
+### Acceso a información institucional
 
-Ruta: /tabs-estudiante/noticias
+* **Vista:** Información Institucional
+* **Ruta:** `/tabs-estudiante/noticias`
+* **Método:** Navegación
+* **Autenticación:** Requerida
+* **Descripción:** Proporciona enlaces externos a la información institucional publicada en la página web oficial.
 
-Método: Navegación
+#### Enlaces disponibles
 
-Autenticación: Requerida
+* `vision` (URL)
+* `mision` (URL)
+* `historia` (URL)
 
-Descripción: Proporciona enlaces externos a la información institucional publicada en la página web oficial.
+#### Ejemplo de enlaces
 
-Enlaces disponibles
-
-vision (URL)
-
-mision (URL)
-
-historia (URL)
-
-Ejemplo de enlaces
+```json
 {
   "vision": "https://www.institucion.edu.ec/vision",
   "mision": "https://www.institucion.edu.ec/mision",
   "historia": "https://www.institucion.edu.ec/quienes-somos"
 }
+```
 
-Acceso a noticia principal
+---
 
-Vista: Noticia Principal
+### Acceso a noticia principal
 
-Ruta: /tabs-estudiante/noticias
+* **Vista:** Noticia Principal
+* **Ruta:** `/tabs-estudiante/noticias`
+* **Método:** Navegación
+* **Autenticación:** Requerida
+* **Descripción:** Muestra un acceso directo a la noticia principal publicada en el sitio web institucional.
 
-Método: Navegación
+#### Datos disponibles
 
-Autenticación: Requerida
+* `titulo` (String)
+* `url` (URL)
 
-Descripción: Muestra un acceso directo a la noticia principal publicada en el sitio web institucional.
+#### Ejemplo de enlace
 
-Datos disponibles
-
-titulo (String)
-
-url (URL)
-
-Ejemplo de enlace
+```json
 {
   "titulo": "Comunicado institucional",
   "url": "https://www.institucion.edu.ec/noticias/comunicado-principal"
 }
+```
 
-Redirección a sitio web institucional
+---
 
-Tipo: Enlace externo
+### Redirección a sitio web institucional
 
-Descripción: Redirige al usuario al navegador del dispositivo para visualizar el contenido completo en la web institucional.
+* **Tipo:** Enlace externo
+* **Descripción:** Redirige al usuario al navegador del dispositivo para visualizar el contenido completo en la web institucional.
 
+```text
 Usuario selecciona enlace → Apertura de navegador → Sitio web institucional
+```
 
-Perfil del estudiante
+---
 
-Vista: Perfil Estudiante
+### Perfil del estudiante
 
-Ruta: /tabs-estudiante/perfil
+* **Vista:** Perfil Estudiante
+* **Ruta:** `/tabs-estudiante/perfil`
+* **Método:** Visualización
+* **Autenticación:** Requerida
+* **Descripción:** Muestra la información básica del estudiante.
 
-Método: Visualización
+#### Ejemplo de datos mostrados
 
-Autenticación: Requerida
-
-Descripción: Muestra la información básica del estudiante.
-
-Ejemplo de datos mostrados
+```json
 {
   "nombre": "Carlos Rodríguez",
   "rol": "Estudiante",
   "curso": "Tercero de Bachillerato"
 }
+```
 
-Gestión de Docentes
-Acceso al panel principal
+---
 
-Vista: Tabs Docente
+## Gestión de Docentes
 
-Ruta: /tabs-docente
+### Acceso al panel principal
 
-Método: Navegación
+* **Vista:** Tabs Docente
+* **Ruta:** `/tabs-docente`
+* **Método:** Navegación
+* **Autenticación:** Requerida
+* **Descripción:** Contenedor principal de funcionalidades del docente.
 
-Autenticación: Requerida
+---
 
-Descripción: Contenedor principal de funcionalidades del docente.
+### Consultar calificaciones por curso
 
-Consultar calificaciones por curso
+* **Vista:** Calificaciones Docente
+* **Ruta:** `/tabs-docente/calificaciones`
+* **Método:** Visualización
+* **Autenticación:** Requerida
+* **Descripción:** Permite visualizar calificaciones organizadas por curso.
 
-Vista: Calificaciones Docente
+#### Ejemplo de datos mostrados
 
-Ruta: /tabs-docente/calificaciones
-
-Método: Visualización
-
-Autenticación: Requerida
-
-Descripción: Permite visualizar calificaciones organizadas por curso.
-
-Ejemplo de datos mostrados
+```json
 {
   "curso": "Segundo de Bachillerato",
   "estudiantes": [
@@ -355,43 +372,68 @@ Ejemplo de datos mostrados
     }
   ]
 }
+```
 
-Perfil del docente
+---
 
-Vista: Perfil Docente
+### Perfil del docente
 
-Ruta: /tabs-docente/perfil
+* **Vista:** Perfil Docente
+* **Ruta:** `/tabs-docente/perfil`
+* **Método:** Visualización
+* **Autenticación:** Requerida
+* **Descripción:** Muestra la información básica del docente.
 
-Método: Visualización
+#### Ejemplo de datos mostrados
 
-Autenticación: Requerida
-
-Descripción: Muestra la información básica del docente.
-
-Ejemplo de datos mostrados
+```json
 {
   "nombre": "Juan Pérez",
   "rol": "Docente",
   "materia": "Matemáticas"
 }
+```
 
-Control de acceso
+---
 
-Tipo: Lógico
+## Control de acceso
 
-Autenticación: Requerida
+* **Tipo:** Lógico
+* **Autenticación:** Requerida
+* **Descripción:** Restringe el acceso a vistas según el rol del usuario.
 
-Descripción: Restringe el acceso a vistas según el rol del usuario.
+#### Ejemplo de validación de rol
 
-Ejemplo de validación de rol
+```json
 {
   "usuario": "docente@institucion.edu.ec",
   "rol": "Docente",
   "accesoPermitido": true
 }
+```
 
-Flujo general del sistema
+---
+
+## Flujo general del sistema
+
+```text
 Login → Validación → Identificación de rol → Redirección → Uso de funcionalidades
+```
+
+---
+
+### 🔥 Resultado
+
+* ✔ Se ve **limpio y profesional** en GitHub
+* ✔ Misma info, **mejor presentada**
+* ✔ Nivel tesis / tribunal / repo serio
+* ✔ Ya no parece texto pegado
+
+Si quieres, el siguiente paso puede ser:
+
+* revisar **si sobra algo** para acortar líneas
+* o **pulir títulos** para que coincidan 1:1 con tu documento de tesis
+
 
 ## Pruebas realizadas
 
