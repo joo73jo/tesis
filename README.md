@@ -69,8 +69,6 @@ Antes de ejecutar el proyecto, asegúrese de contar con lo siguiente instalado:
   ```
 * Android Studio (para compilación y ejecución en Android)
 * JDK 17
-* Cuenta activa en Firebase
-
 ---
 
 ## Inicialización del proyecto
@@ -92,27 +90,6 @@ cd tesis
 ```bash
 npm install
 ```
-
----
-
-## Configuración del entorno
-
-### Firebase
-
-1. Crear un proyecto en Firebase.
-2. Habilitar:
-
-   * **Authentication (Email/Password)**
-   * **Cloud Firestore**
-3. Descargar el archivo `google-services.json`.
-4. Colocar el archivo en la ruta:
-
-```
-android/app/google-services.json
-```
-
-5. Configurar las credenciales de Firebase en el proyecto según la documentación oficial.
-
 ---
 
 ## Ejecución del proyecto
