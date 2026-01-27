@@ -138,7 +138,6 @@ src/app/
 El enrutamiento se gestiona mediante `app.routes.ts` utilizando **Angular Standalone Routing**.
 
 ---
-
 Documentación
 Autenticación
 Inicio de sesión
@@ -153,14 +152,13 @@ Autenticación: No requerida
 
 Descripción: Permite autenticar al usuario y determinar su rol de acceso.
 
-Campos requeridos:
+Campos requeridos
 
 email (String): Correo electrónico
 
 password (String): Contraseña
 
-Ejemplo de entrada:
-
+Ejemplo de entrada
 {
   "email": "docente@institucion.edu.ec",
   "password": "Docente123"
@@ -191,7 +189,7 @@ Autenticación: Requerida
 
 Descripción: Permite visualizar las calificaciones académicas del estudiante.
 
-Datos mostrados:
+Datos mostrados
 
 materia (String)
 
@@ -199,8 +197,7 @@ promedio (Number)
 
 estado (String)
 
-Ejemplo de datos mostrados:
-
+Ejemplo de datos mostrados
 [
   {
     "materia": "Matemáticas",
@@ -226,12 +223,11 @@ Autenticación: Requerida
 
 Descripción: Muestra las observaciones registradas por el docente.
 
-Parámetros de ruta:
+Parámetros de ruta
 
 id (String): Identificador de la materia
 
-Ejemplo de datos mostrados:
-
+Ejemplo de datos mostrados
 {
   "materia": "Matemáticas",
   "observacion": "Debe reforzar operaciones con fracciones.",
@@ -254,16 +250,15 @@ Autenticación: Requerida
 
 Descripción: Proporciona enlaces externos a la información institucional publicada en la página web oficial.
 
-Enlaces disponibles:
+Enlaces disponibles
 
-vision (URL): Enlace a la visión institucional
+vision (URL)
 
-mision (URL): Enlace a la misión institucional
+mision (URL)
 
-historia (URL): Enlace a información general de la institución
+historia (URL)
 
-Ejemplo de enlaces:
-
+Ejemplo de enlaces
 {
   "vision": "https://www.institucion.edu.ec/vision",
   "mision": "https://www.institucion.edu.ec/mision",
@@ -282,14 +277,13 @@ Autenticación: Requerida
 
 Descripción: Muestra un acceso directo a la noticia principal publicada en el sitio web institucional.
 
-Datos disponibles:
+Datos disponibles
 
 titulo (String)
 
-url (URL): Enlace externo a la noticia completa
+url (URL)
 
-Ejemplo de enlace:
-
+Ejemplo de enlace
 {
   "titulo": "Comunicado institucional",
   "url": "https://www.institucion.edu.ec/noticias/comunicado-principal"
@@ -300,8 +294,6 @@ Redirección a sitio web institucional
 Tipo: Enlace externo
 
 Descripción: Redirige al usuario al navegador del dispositivo para visualizar el contenido completo en la web institucional.
-
-Ejemplo de flujo:
 
 Usuario selecciona enlace → Apertura de navegador → Sitio web institucional
 
@@ -317,8 +309,7 @@ Autenticación: Requerida
 
 Descripción: Muestra la información básica del estudiante.
 
-Ejemplo de datos mostrados:
-
+Ejemplo de datos mostrados
 {
   "nombre": "Carlos Rodríguez",
   "rol": "Estudiante",
@@ -350,8 +341,7 @@ Autenticación: Requerida
 
 Descripción: Permite visualizar calificaciones organizadas por curso.
 
-Ejemplo de datos mostrados:
-
+Ejemplo de datos mostrados
 {
   "curso": "Segundo de Bachillerato",
   "estudiantes": [
@@ -378,8 +368,7 @@ Autenticación: Requerida
 
 Descripción: Muestra la información básica del docente.
 
-Ejemplo de datos mostrados:
-
+Ejemplo de datos mostrados
 {
   "nombre": "Juan Pérez",
   "rol": "Docente",
@@ -394,8 +383,7 @@ Autenticación: Requerida
 
 Descripción: Restringe el acceso a vistas según el rol del usuario.
 
-Ejemplo de validación de rol:
-
+Ejemplo de validación de rol
 {
   "usuario": "docente@institucion.edu.ec",
   "rol": "Docente",
